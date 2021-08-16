@@ -3,7 +3,9 @@ class TournamentsController < ApplicationController
 
   # GET /tournaments or /tournaments.json
   def index
-    @tournaments = Tournament.all
+    h = Hash.new
+    @tournaments = current_user.present? ? Tournament.where(user_id: current_user.id) : []
+    @teams = Team.where(tournament_id: @tournaments.pluck(:id))
     render json: @tournaments.to_json
   end
 

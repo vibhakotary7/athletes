@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_095338) do
+ActiveRecord::Schema.define(version: 2021_08_13_105722) do
 
   create_table "api_keys", force: :cascade do |t|
     t.integer "bearer_id", null: false
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 2021_08_13_095338) do
     t.string "place"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_tournaments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,4 +40,5 @@ ActiveRecord::Schema.define(version: 2021_08_13_095338) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "tournaments", "users"
 end
